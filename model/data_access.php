@@ -15,7 +15,7 @@ function get_connection(){
     }
     return $connection;
 }
-
+/**/
 function convert_mysql_user_array_to_map($usr){
     return array(
         user_FIRST_NAME=> $usr["first_name"],
