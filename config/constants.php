@@ -11,7 +11,7 @@ define("playlist_genre", "genre");
 define("playlist_users_email","users_emails");
 
 //Application paths
-define("APPLICATION_NAME","MusicCloud");
+define("APPLICATION_NAME","musiccloud");
 define("APPLICATION_ROOT", "http://" . $_SERVER["SERVER_NAME"] . "/" . APPLICATION_NAME);
 define("CSS", APPLICATION_ROOT . "/resources/css");
 define("JS", APPLICATION_ROOT . "/resources/js");
