@@ -77,7 +77,7 @@ function save_new_song($songname, $songauthor, $songgenre, $songreleasedate, $so
 }
 
 function get_user_object($userId){
-    todolog("data_access.php | trying to get user info");
+    //todolog("data_access.php | trying to get user info");
     $query = "SELECT * FROM users WHERE email='$userId'";
     $connection = get_connection();
     $resultSet = mysqli_query($connection, $query);    

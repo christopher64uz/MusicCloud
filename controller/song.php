@@ -56,7 +56,8 @@ if ($_POST["action"] == "Save") {
             $valid = checkuploadedfile();
             
             if ($valid) {                
-                $songfilename = trim(mysql_real_escape_string($connection, basename($_FILES["songfilename"]["name"])));
+                $songfilename = trim(mysqli_real_escape_string($connection, basename($_FILES["songfilename"]["name"])));
+                //exit;
                 new_song($songname, $songauthor, $songgenre, $songreleasedate, $songfilename);
                 redirect(VIEWS . "/upload_form.php");
             }

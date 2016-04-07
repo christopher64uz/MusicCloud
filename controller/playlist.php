@@ -14,12 +14,12 @@ if (empty($_POST["action"])) {  // isset() function does not work since it print
 if ($_POST["action"] == "Save") {
     // Validating the input
     $connection = get_connection();
-    $playlistname = trim(mysql_real_escape_string($connection, $_POST["playlistname"]));
-    $playlistgenre =  trim(mysql_real_escape_string($connection, $_POST["playlistgenre"]));
+    $playlistname = trim(mysqli_real_escape_string($connection, $_POST["playlistname"]));
+    $playlistgenre =  trim(mysqli_real_escape_string($connection, $_POST["playlistgenre"]));
     
     $playlistsongs = $_POST['songlist'];
     //print_r($playlistsongs);
-    
+    //exit;
     if (!empty($playlistname) && !empty($playlistgenre) && !empty($playlistsongs)) {
         new_playlist($playlistname, $playlistgenre, $playlistsongs);
     }
