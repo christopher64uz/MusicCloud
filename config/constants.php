@@ -22,8 +22,8 @@ define("CURRENT_USER","CURRENT_USER");
 
 define("mysql_HOSTNAME", "localhost");
 define("mysql_PORT", "3306");
-define("mysql_USERNAME", "root");
-define("mysql_PASSWORD", "");
+define("mysql_USERNAME", "adminZKJ5CqA");
+define("mysql_PASSWORD", "KtntRFX1m7JB");
 define("mysql_DATABASE","music_cloud");
 
 ?>
