@@ -76,7 +76,8 @@ function save_new_song($songname, $songauthor, $songgenre, $songreleasedate, $so
     mysqli_query($connection, $songquery) or trigger_error(mysqli_error()." in ".$songquery);
 }
 
-function get_user_object($userId){    
+function get_user_object($userId){
+    todolog("data_access.php | trying to get user info");
     $query = "SELECT * FROM users WHERE email='$userId'";
     $connection = get_connection();
     $resultSet = mysqli_query($connection, $query);    
@@ -88,37 +89,15 @@ function get_user_object($userId){
     return $user;
 }
 
-function save_todo_object($todo){
-	todolog("mysql_data_access.php | trying to save todo");
-	
-	$stmt = "INSERT INTO todo (description, scheduled_date, status, owner) VALUES(";
-    $stmt = $stmt . "'" . $todo[todo_DESCRIPTION] . "',";
-    $stmt = $stmt . "'" . $todo[todo_DATE] . "',";
-    $stmt = $stmt . "'" . $todo[todo_STATUS] . "',";
-    $stmt = $stmt . "'" . $todo[todo_OWNER] . "'";
-    $stmt = $stmt . ")";
-
-	todolog("mysql_data_access.php | insert stmt: $stmt");
-
-    $connection = get_connection();
-    mysqli_query($connection, $stmt);
-    
-    $previousId = mysqli_insert_id($connection);
-    todolog("mysql_data_access.php | generated todo id: $previousId");
-    $todo[todo_ID] = $previousId;
-
-    return $todo;
-}
-
 function get_song_array($user,$flag){
-    $user = mysql_real_escape_string($user);
+    $connection = get_connection();
+    $user = mysqli_real_escape_string($connection, $user);
     $songquery = "SELECT id, name, author, genre, filename FROM song WHERE users_email = '$user' ORDER BY id DESC";
     if ($flag == 1) {
         $songquery = "SELECT id, name, author, genre, filename FROM song WHERE users_email = '$user' AND playlists_id is NULL ORDER BY id DESC";
-    }
-    $connection = get_connection();
+    }    
     $resultSet = mysqli_query($connection, $songquery) or trigger_error(mysqli_error()." in ".$songquery);
-    //exit;
+    
     $songs = [];
     while ($song = mysqli_fetch_array($resultSet)) {
         $songs[] = convert_mysql_song_array_to_map($song);
@@ -129,10 +108,10 @@ function get_song_array($user,$flag){
 }
 
 function get_playlist_array($user) {
-    $user = mysql_real_escape_string($user);
+    $connection = get_connection();
+    $user = mysqli_real_escape_string($connection, $user);
     $playlistquery = "SELECT * FROM playlist WHERE users_email='$user' ORDER BY pid DESC";
     
-    $connection = get_connection();
     $resultSet = mysqli_query($connection, $playlistquery) or trigger_error(mysqli_error()." in ".$playlistquery);
 
     $playlists =[];
@@ -178,10 +157,9 @@ function show_playlist(){
 }
 
 
-function get_playlist_object($playId){
-    //echo $userId;
-	//music_cloudlog("mysql_data_access.php | trying to retrieve user object: $userId");
-	$query = "SELECT * FROM playlist WHERE pid='".$playId."';";
+function get_playlist_object($playId){    
+    //music_cloudlog("mysql_data_access.php | trying to retrieve user object: $userId");
+    $query = "SELECT * FROM playlist WHERE pid='".$playId."';";
     //echo $query;
     $connection = get_connection();
     $resultSet = mysqli_query($connection, $query);
@@ -196,9 +174,8 @@ function get_playlist_object($playId){
 
 
 function get_song_object($songId){
-    //echo $userId;
-	//music_cloudlog("mysql_data_access.php | trying to retrieve user object: $userId");
-	$query = "SELECT * FROM song WHERE playlists_id='".$songId."';";
+    //music_cloudlog("mysql_data_access.php | trying to retrieve user object: $userId");
+    $query = "SELECT * FROM song WHERE playlists_id='".$songId."';";
     //echo $query;
     $connection = get_connection();
     $resultSet = mysqli_query($connection, $query);

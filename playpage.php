@@ -5,10 +5,7 @@ $navMarkup = "";
 $navMarkup = $navMarkup . "<li><a href=\"" . VIEWS . "/login.php\">Login</a></li>";
 $navMarkup = $navMarkup . "<li><a href=\"" . VIEWS . "/registration_form.php\">Sign up</a></li>";
 
-
 require_once("views/header.php");
-
-
 
 if(session_id() == '' || !isset($_SESSION)) {
     todolog("todo.php | No session found. Starting new session");

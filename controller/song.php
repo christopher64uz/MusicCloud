@@ -43,11 +43,12 @@ if (empty($_POST["action"])) {  // isset() function does not work since it print
 }
 
 if ($_POST["action"] == "Save") {
-    // Validating the input   
-    $songname =  trim(mysql_real_escape_string($_POST["songname"]));
-    $songauthor =  trim(mysql_real_escape_string($_POST["songauthor"]));
-    $songgenre =  trim(mysql_real_escape_string($_POST["songgenre"]));
-    $songreleasedate =  trim(mysql_real_escape_string($_POST["songreleasedate"]));
+    // Validating the input
+    $connection = get_connection();
+    $songname =  trim(mysqli_real_escape_string($connection, $_POST["songname"]));
+    $songauthor =  trim(mysqli_real_escape_string($connection, $_POST["songauthor"]));
+    $songgenre =  trim(mysqli_real_escape_string($connection, $_POST["songgenre"]));
+    $songreleasedate =  trim(mysqli_real_escape_string($connection, $_POST["songreleasedate"]));
     
     if (!empty($songname) && !empty($songauthor) && !empty($songgenre) && !empty($songreleasedate)) {
         if (preg_match("/^\d{2}\/\d{2}\/\d{4}$/", $songreleasedate) || preg_match("/^\d{4}\-\d{2}\-\d{2}$/", $songreleasedate)) {
@@ -55,7 +56,7 @@ if ($_POST["action"] == "Save") {
             $valid = checkuploadedfile();
             
             if ($valid) {                
-                $songfilename = trim(mysql_real_escape_string(basename($_FILES["songfilename"]["name"])));
+                $songfilename = trim(mysql_real_escape_string($connection, basename($_FILES["songfilename"]["name"])));
                 new_song($songname, $songauthor, $songgenre, $songreleasedate, $songfilename);
                 redirect(VIEWS . "/upload_form.php");
             }
