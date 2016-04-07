@@ -127,7 +127,7 @@ require_once("header.php");
                 <tr>
                     <td class="name"><?php echo $playlist[playlist_name] ?></td>
                     <td class="genre"><?php echo $playlist[playlist_genre] ?></td>                    
-                    <td class="publish"><button class="facebookppub" name="publish" onclick="" value="<?php echo $playlist[playlist_pid] ?>">Share Facebook</button></td>
+                    <td class="publish"><button class="facebookppub" name="publish" onclick="alert('Facebook API need to be added')" value="<?php echo $playlist[playlist_pid] ?>">Share Facebook</button></td>
                 </tr>
                 <?php
             }
