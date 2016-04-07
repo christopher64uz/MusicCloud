@@ -12,7 +12,8 @@ define("playlist_users_email","users_emails");
 
 //Application paths
 define("APPLICATION_NAME","musiccloud");
-define("APPLICATION_ROOT", "http://" . $_SERVER["SERVER_NAME"] . "/" . APPLICATION_NAME);
+//define("APPLICATION_ROOT", "http://" . $_SERVER["SERVER_NAME"] . "/" . APPLICATION_NAME);
+define("APPLICATION_ROOT", "http://musiccloud-christopheruz.rhcloud.com/");
 define("CSS", APPLICATION_ROOT . "/resources/css");
 define("JS", APPLICATION_ROOT . "/resources/js");
 define("CONTROLLER", APPLICATION_ROOT . "/controller");
@@ -22,8 +23,8 @@ define("CURRENT_USER","CURRENT_USER");
 
 define("mysql_HOSTNAME", "localhost");
 define("mysql_PORT", "3306");
-define("mysql_USERNAME", "adminZKJ5CqA");
-define("mysql_PASSWORD", "KtntRFX1m7JB");
+define("mysql_USERNAME", "root");
+define("mysql_PASSWORD", "");
 define("mysql_DATABASE","music_cloud");
 
 ?>
