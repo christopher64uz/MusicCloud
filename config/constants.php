@@ -8,6 +8,7 @@ define("song_filename","filename");
 define("playlist_pid", "pid");
 define("playlist_name", "name");
 define("playlist_genre", "genre");
+define("playlist_users_email","users_emails");
 
 //Application paths
 define("APPLICATION_NAME","MusicCloud");

@@ -76,10 +76,6 @@ function save_new_song($songname, $songauthor, $songgenre, $songreleasedate, $so
     mysqli_query($connection, $songquery) or trigger_error(mysqli_error()." in ".$songquery);
 }
 
-
-
-
-
 function get_user_object($userId){    
     $query = "SELECT * FROM users WHERE email='$userId'";
     $connection = get_connection();
@@ -162,4 +158,55 @@ function save_new_playlist($playlistname, $playlistgenre, $playlistsongs) {
     return true;
 }
 
+function show_table($record){
+    return array (
+        playlist_name => $record['name'],
+        playlist_genre => $record['genre'],
+        playlist_users_email => $record['users_email'],
+        playlist_pid => $record['pid'],
+    );
+}
+
+function show_playlist(){
+	$query = "SELECT * FROM playlist";
+	$connection = get_connection();
+	$resultSet = mysqli_query($connection, $query);
+	while ($record = mysqli_fetch_array($resultSet)) {
+    	$table [] = show_table($record);
+    }
+    return $table;
+}
+
+
+function get_playlist_object($playId){
+    //echo $userId;
+	//music_cloudlog("mysql_data_access.php | trying to retrieve user object: $userId");
+	$query = "SELECT * FROM playlist WHERE pid='".$playId."';";
+    //echo $query;
+    $connection = get_connection();
+    $resultSet = mysqli_query($connection, $query);
+
+    while ($record = mysqli_fetch_array($resultSet)) {
+    	//music_cloudlog("mysql_data_access.php | trying to convert stdclass to map");
+        $playlist[] = convert_mysql_playlist_array_to_map($record);
+    }
+    //music_cloudlog("mysql_data_access.php | user: " . print_r($user, true));
+    return $playlist;
+}
+
+
+function get_song_object($songId){
+    //echo $userId;
+	//music_cloudlog("mysql_data_access.php | trying to retrieve user object: $userId");
+	$query = "SELECT * FROM song WHERE playlists_id='".$songId."';";
+    //echo $query;
+    $connection = get_connection();
+    $resultSet = mysqli_query($connection, $query);
+
+    $song = array();
+    while ($record = mysqli_fetch_array($resultSet)) {
+       $song[] = convert_mysql_song_array_to_map($record);
+   }
+    return $song;
+}
 ?>
